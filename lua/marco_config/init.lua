@@ -1,11 +1,57 @@
+-- Line vim style on the bottom
 require('hardline').setup {}
-require('nvim-tree').setup()
+
+-- file manager
+require('nvim-tree').setup{
+	update_focused_file = {
+        enable = true,  -- Abilita l'aggiornamento del file attivo
+        update_cwd = true,  -- Aggiorna la directory di lavoro attiva
+    },
+}
+
+-- personal remap
 require('marco_config.remap')
 
+-- autopairs of parenteses etc...
+require('nvim-autopairs').setup{}
+
+-- numers on the left
+vim.cmd("set number")
+
+-- tab size
+vim.cmd("set tabstop=4")
+vim.cmd("set shiftwidth=4")
 
 -- Funzione per aprire Nvim Tree e mantenere il focus sul buffer attivo
 vim.cmd([[autocmd VimEnter * NvimTreeOpen | NvimTreeClose]])
 
+-- config for line of indetation
+require("ibl").setup()
+
+-- color theme
+require('fluoromachine').setup {
+    glow = false,  -- Abilita il glow per un effetto neon
+    theme = 'retrowave',  -- Tema principale (puoi aggiustare con altri temi inclusi)
+}
+
+vim.cmd[[colorscheme fluoromachine]]
+
+-- config treesitter for better color theme
+require('nvim-treesitter.configs').setup {
+    -- Specifica i linguaggi che vuoi installare o usa "all" per tutti
+    ensure_installed = { "lua", "python", "javascript", "html", "css", "c", "bash", "svelte" },
+
+    -- Abilita l'evidenziazione della sintassi
+    highlight = {
+        enable = true,          -- Abilita l'evidenziazione
+        additional_vim_regex_highlighting = false,  -- Disabilita la vecchia sintassi di Vim
+    },
+
+    -- Opzioni aggiuntive (facoltative)
+    indent = {
+        enable = true           -- Abilita indentazione basata su Treesitter
+    }
+}
 
 -- configurazione toggleterm
 require("toggleterm").setup{
